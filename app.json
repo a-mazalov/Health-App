@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "health_lab3",
+    "slug": "health_lab3",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
