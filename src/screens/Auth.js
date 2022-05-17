@@ -7,18 +7,35 @@ import {
 	Image,
 	TextInput,
 } from "react-native";
-import Loader from "../components/Icons/Loader";
 import Logo from "../components/Icons/Logo";
-import { observer } from "mobx-react-lite";
-import { useState } from "react";
-import { AuthStore } from "../store/auth";
+import { observer, useLocalObservable } from "mobx-react-lite";
+import { UserNotFoundException } from "../utils/errors";
+import { useStores } from "../store";
+import { runInAction } from "mobx";
 
 export const AuthScreen = observer(({ navigation }) => {
-	const [authStore] = useState(() => new AuthStore());
+	const { authStore } = useStores();
 
-	function onChangeText(value) {
-		authStore.email = value;
-	}
+	const signInObj = useLocalObservable(() => ({
+		email: "",
+		password: "",
+	}));
+
+	const updateProperty = (key, value) => {
+		runInAction(() => {
+			signInObj[key] = value;
+		});
+	};
+
+	const signIn = async () => {
+		try {
+			await authStore.authentication(signInObj.email, signInObj.password);
+		} catch (error) {
+			if (error instanceof UserNotFoundException) {
+				alert("Неверный логин или пароль");
+			}
+		}
+	};
 
 	return (
 		<View style={{ flex: 1, padding: 16, backgroundColor: "#253334" }}>
@@ -32,29 +49,29 @@ export const AuthScreen = observer(({ navigation }) => {
 						color: "white",
 					}}
 				>
-					Sign In {authStore.value}
-					email {JSON.stringify(authStore.isValidEmail)}
+					Sign In
 				</Text>
 			</View>
 			<View style={{ flex: 1 }}>
 				<TextInput
 					style={styles.input}
-					onChangeText={(value) => authStore.handleEmail(value)}
+					onChangeText={(value) => updateProperty("email", value)}
 					placeholder="Email"
 				/>
 				<TextInput
 					style={styles.input}
-					onChangeText={(value) => authStore.handlePassword(value)}
+					secureTextEntry={true}
+					onChangeText={(value) => updateProperty("password", value)}
 					placeholder="Password"
 				/>
 			</View>
 			<View style={{ flex: 1 }}>
-				<Pressable style={styles.button} onPress={() => authStore.increment()}>
+				<Pressable style={styles.button} onPress={() => signIn()}>
 					<Text style={styles.buttonText}>Sign In</Text>
 				</Pressable>
 				<Pressable
 					style={styles.button}
-					onPress={() => authStore.registration() }
+					onPress={() => navigation.navigate("Registration")}
 				>
 					<Text style={styles.buttonText}>Registration</Text>
 				</Pressable>
@@ -62,7 +79,7 @@ export const AuthScreen = observer(({ navigation }) => {
 		</View>
 	);
 });
-// navigation.navigate("Home")
+
 const styles = StyleSheet.create({
 	input: {
 		height: 40,

@@ -9,6 +9,7 @@ import {
 	FlatList,
 } from "react-native";
 import Logo from "../components/Icons/Logo";
+import { useStores } from "../store";
 
 function MoodButton({ item }) {
 	return (
@@ -42,7 +43,7 @@ function CategoryButton({ item }) {
 }
 
 export function HomeScreen() {
-	const [userName] = React.useState("Djoni");
+	const { authStore } = useStores();
 
 	const Moods = [
 		{ title: "Спокойный" },
@@ -73,7 +74,7 @@ export function HomeScreen() {
 			</View>
 			<View>
 				<Text style={{ fontSize: 20, fontWeight: 600, color: "white" }}>
-					С Возвращением, {userName}{" "}
+					С Возвращением, {authStore.user?.name}
 				</Text>
 				<Text style={{ fontSize: 18, fontWeight: 500, color: "#BEC1C2" }}>
 					Каким ты себя чувствуешь сегодня?
