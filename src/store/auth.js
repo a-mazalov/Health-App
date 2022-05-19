@@ -28,15 +28,19 @@ export class AuthStore {
 	async loadAuth() {
 		let authUser = await this.getAuthData(AUTH_USER_STORAGE_KEY);
 
+		if (Array.isArray(authUser) && authUser.length == 0) {
+			console.log("[AuthStore]: LoadAuth: No saved user");
+
+			return;
+		}
+
 		console.log("[AuthStore]: LoadAuth", authUser);
 
-		if (authUser.length) {
-			runInAction(() => {
-				this.user.name = authUser.name;
-				this.user.email = authUser.email;
-				this.isAuth = true;
-			});
-		}
+		runInAction(() => {
+			this.user.name = authUser.name;
+			this.user.email = authUser.email;
+			this.isAuth = true;
+		});
 	}
 
 	async authentication(login, password) {
@@ -108,7 +112,7 @@ export class AuthStore {
 			this.user.email = object.email;
 			this.isAuth = true;
 		});
-		
+
 		await AsyncStorage.setItem(
 			AUTH_USER_STORAGE_KEY,
 			JSON.stringify(this.user)

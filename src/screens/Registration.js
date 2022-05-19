@@ -31,8 +31,8 @@ export const RegistrationScreen = observer(({ navigation }) => {
 		runInAction(() => {
 			regObj.name = `Demo ${randomDigits}`;
 			regObj.email = `${randomDigits}@gmail.com`;
-			regObj.password = 123;
-			regObj.confirm_password = 123;
+			regObj.password = "123";
+			regObj.confirm_password = "123";
 		});
 	};
 
@@ -66,11 +66,11 @@ export const RegistrationScreen = observer(({ navigation }) => {
 	return (
 		<View style={{ flex: 1, padding: 16, backgroundColor: "#253334" }}>
 			<View style={{ flex: 1, justifyContent: "flex-start", marginTop: 32 }}>
-				<Logo fill="white" />
+				<Logo fill="white" style={{ marginLeft: -16 }} />
 				<Text
 					style={{
 						fontSize: 24,
-						fontWeight: 600,
+						fontWeight: "600",
 						marginTop: 24,
 						color: "white",
 					}}
@@ -83,12 +83,14 @@ export const RegistrationScreen = observer(({ navigation }) => {
 					style={styles.input}
 					onChangeText={(value) => updateProperty("name", value)}
 					placeholder="Name"
+					placeholderTextColor="white"
 					value={regObj.name}
 				/>
 				<TextInput
 					style={styles.input}
 					onChangeText={(value) => updateProperty("email", value)}
 					placeholder="Email"
+					placeholderTextColor="white"
 					value={regObj.email}
 				/>
 				<TextInput
@@ -96,6 +98,7 @@ export const RegistrationScreen = observer(({ navigation }) => {
 					secureTextEntry={true}
 					onChangeText={(value) => updateProperty("password", value)}
 					placeholder="Password"
+					placeholderTextColor="white"
 					value={regObj.password}
 				/>
 				<TextInput
@@ -103,11 +106,12 @@ export const RegistrationScreen = observer(({ navigation }) => {
 					secureTextEntry={true}
 					onChangeText={(value) => updateProperty("confirm_password", value)}
 					placeholder="Confirm password"
+					placeholderTextColor="white"
 					value={regObj.confirm_password}
 				/>
 			</View>
-			<View style={{ flex: 1 }}>
-				<Pressable style={{ marginBottom: 16 }} onPress={() => setDemoUser()}>
+			<View style={{ flex: 1, justifyContent: "space-between" }}>
+				<Pressable style={{ marginVertical: 24 }} onPress={() => setDemoUser()}>
 					<Text style={styles.buttonText}>Set demo data</Text>
 				</Pressable>
 				<Pressable style={styles.button} onPress={() => registration()}>
@@ -126,11 +130,13 @@ const styles = StyleSheet.create({
 		borderBottomWidth: 1,
 		padding: 10,
 		marginBottom: 16,
-		placeholderTextColor: "white",
 	},
 	button: {
 		textAlign: "center",
-		padding: 10,
+		height: 48,
+		// padding: 10,
+		justifyContent: "center",
+		alignItems: "center",
 		marginBottom: 10,
 		borderRadius: 4,
 		backgroundColor: "#7c9a92",

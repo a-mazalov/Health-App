@@ -4,23 +4,13 @@ import { useState } from "react";
 import { useStores } from "../store";
 
 
-export const ProfileScreen = observer(({ navigation }) => {
+export const AboutScreen = observer(({ navigation }) => {
 	const { authStore } = useStores();
 
 	return (
 		<View style={styles.container}>
-			<Text style={styles.caption}>Name: {authStore.user.name }</Text>
-			<Text style={styles.caption}>Email: {authStore.user.email }</Text>
-			<Pressable style={[styles.btn, { marginTop: 16 }]} onPress={() => navigation.navigate("About") }>
-				<Text>About the developer </Text>
-			</Pressable>
-
-
-			<View style={{ flex: 1, justifyContent: "flex-end" }}>
-				<Pressable style={styles.btn} onPress={() => authStore.reset() }>
-					<Text style={{color: "red",}}>Выйти</Text>
-				</Pressable>
-			</View>
+			<Text style={styles.caption}>ФИО: </Text>
+			<Text style={styles.caption}>Группа: </Text>
 		</View>
 	);
 });

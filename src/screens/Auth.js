@@ -40,11 +40,11 @@ export const AuthScreen = observer(({ navigation }) => {
 	return (
 		<View style={{ flex: 1, padding: 16, backgroundColor: "#253334" }}>
 			<View style={{ flex: 1, justifyContent: "flex-start", marginTop: 32 }}>
-				<Logo fill="white" />
+				<Logo fill="white" style={{ marginLeft: -16 }} />
 				<Text
 					style={{
 						fontSize: 24,
-						fontWeight: 600,
+						fontWeight: "600",
 						marginTop: 24,
 						color: "white",
 					}}
@@ -57,11 +57,13 @@ export const AuthScreen = observer(({ navigation }) => {
 					style={styles.input}
 					onChangeText={(value) => updateProperty("email", value)}
 					placeholder="Email"
+					placeholderTextColor={"white"}
 				/>
 				<TextInput
 					style={styles.input}
 					secureTextEntry={true}
 					onChangeText={(value) => updateProperty("password", value)}
+					placeholderTextColor={"white"}
 					placeholder="Password"
 				/>
 			</View>
@@ -88,11 +90,14 @@ const styles = StyleSheet.create({
 		borderBottomWidth: 1,
 		padding: 10,
 		marginBottom: 16,
-		placeholderTextColor: "white",
+		// placeholderTextColor: "white",
 	},
 	button: {
 		textAlign: "center",
-		padding: 10,
+		height: 48,
+		// padding: 10,
+		justifyContent: "center",
+		alignItems: "center",
 		marginBottom: 10,
 		borderRadius: 4,
 		backgroundColor: "#7c9a92",
