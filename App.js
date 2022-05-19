@@ -13,16 +13,16 @@ import { observer, useLocalObservable } from "mobx-react-lite";
 import { useStores } from "./src/store";
 import AppLoading from "expo-app-loading";
 import { createStackNavigator } from "@react-navigation/stack";
-import { AuthStackScreen, HomeStackScreen } from "./src/screens/ScreenStacks";
+import { AuthStackScreen, TabStackScreen } from "./src/screens/ScreenStacks";
 
 const RootStack = createStackNavigator();
 
 const RootStackScreen = ({ isAuth }) => (
-	<RootStack.Navigator>
+	<RootStack.Navigator >
 		{isAuth ? (
 			<RootStack.Screen
 				name="Home"
-				component={HomeStackScreen}
+				component={TabStackScreen}
 				options={{ headerShown: false }}
 			/>
 		) : (
@@ -82,7 +82,8 @@ export default observer(() => {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: "#7c9a92",
+		// backgroundColor: "#7c9a92",
+		backgroundColor: "#283334",
 		alignItems: "center",
 		justifyContent: "center",
 	},
